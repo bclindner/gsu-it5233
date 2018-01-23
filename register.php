@@ -15,60 +15,60 @@ $answer = "";
 // If someone is attempting to register, process their request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	// Make note that we are attempting a registration
-	$registerAttempt = True;
+  // Make note that we are attempting a registration
+  $registerAttempt = True;
 
-	// Declare the credentials to the database
-        include "srvvar.php";
+  // Declare the credentials to the database
+  include "srvvar.php";
 
-	// Create connection
-	$conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
+  // Create connection
+  $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
 
-	// Check connection, if it failed, then error out
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+  // Check connection, if it failed, then error out
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
-	// Pull the username, password, question, and answer from the <form> POST
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	$question = $_POST['question'];
-	$answer = $_POST['answer'];
+  // Pull the username, password, question, and answer from the <form> POST
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $question = $_POST['question'];
+  $answer = $_POST['answer'];
 
-	// Validate the user input
-	if (empty($username)) {
-		$errors[] = "Missing username";
-	}
-	if (empty($password)) {
-		$errors[] = "Missing password";
-	}
-	if (empty($question)) {
-		$errors[] = "Missing security question";
-	}
-	if (empty($answer)) {
-		$errors[] = "Missing answer to security question";
-	}
+  // Validate the user input
+  if (empty($username)) {
+    $errors[] = "missing username";
+  }
+  if (empty($password)) {
+    $errors[] = "nissing password";
+  }
+  if (empty($question)) {
+    $errors[] = "missing security question";
+  }
+  if (empty($answer)) {
+    $errors[] = "missing answer to security question";
+  }
 
-	// Only try to insert the data if there are no validation errors
-	if (sizeof($errors) == 0) {
+  // Only try to insert the data if there are no validation errors
+  if (sizeof($errors) == 0) {
 
-		// Construct a SQL statement to perform the insert operation
-		$sql = "INSERT INTO users (username, password, question, answer) VALUES ('$username', '$password', '$question', '$answer')";
-		echo $sql;
+    // Construct a SQL statement to perform the insert operation
+    $sql = "INSERT INTO users (username, password, question, answer) VALUES ('$username', '$password', '$question', '$answer')";
+    echo $sql;
 
-		// Attempt to add the new user to the database
-		$result = False;
-		$result = $conn->query($sql);
+    // Attempt to add the new user to the database
+    $result = False;
+    $result = $conn->query($sql);
 
-		// Run the query and, if it succeeds, redirect to the login page
-		if ($result == True) {
-		    header("Location: login.php?register=success");
-			exit();
-		} else {
-			$errors[] = "Database error. Username already exists?";
-		}
+    // Run the query and, if it succeeds, redirect to the login page
+    if ($result == True) {
+      header("Location: login.php?register=success");
+      exit();
+    } else {
+      $errors[] = "database error. username already exists?";
+    }
 
-	}
+  }
 
 }
 
@@ -90,40 +90,53 @@ Notes:
 <!doctype html>
 <html>
 <head>
-    <title>ribbit - register</title>
-    <meta name="author" content="Brian Lindner">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="ribbit.css">
-    <meta charset="utf-8">
+  <title>ribbit - register</title>
+  <meta name="author" content="Brian Lindner">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+  <link rel="stylesheet" type="text/css" href="ribbit.css">
+  <meta charset="utf-8">
 </head>
 <body>
-    <div class="welcome-hero fancy">
-        <div class="accent herobox modal">
-            <form action="" method="POST">
-                <a href="index.php">« go back</a>
-                <h1>register</h1>
-                <p>note: you must be a frog to register for ribbit.</p>
-                <p>please fill out the following fields</p>
-                <div>
-                    <label for="username">username</label>
-                    <input type="text" name="username" value="<?php echo $username; ?>"></input>
+  <div class="welcome-hero fancy">
+    <div class="accent herobox modal">
+      <form action="" method="POST">
+        <a href="index.php">« go back</a>
+        <h1>register</h1>
+        <div id="errors">
+          <?php
+            if (count($errors) > 0) {
+              foreach ($errors as $errmsg) {
+                ?>
+                <div class="button red">
+                <?php echo $errmsg; ?>
                 </div>
-                <div>
-                    <label for="password">password</label>
-                    <input type="password" name="password" value="<?php echo $password; ?>"></input>
-                </div>
-                <div>
-                    <label for="question">security question</label>
-                    <input type="text" name="question" value="<?php echo $question; ?>"></input>
-                </div>
-                <div>
-                    <label for="answer">security answer</label>
-                    <input type="text" name="answer" value="<?php echo $answer; ?>"></input>
-                </div>
-                <input type="submit" value="register" class="button daccent">
-            </form>
+                <?php
+              }
+            }
+          ?>
         </div>
+        <p>note: you must be a frog to register for ribbit.</p>
+        <p>please fill out the following fields</p>
+        <div>
+            <label for="username">username</label>
+            <input type="text" name="username" value="<?php echo $username; ?>"></input>
+        </div>
+        <div>
+            <label for="password">password</label>
+            <input type="password" name="password" value="<?php echo $password; ?>"></input>
+        </div>
+        <div>
+            <label for="question">security question</label>
+            <input type="text" name="question" value="<?php echo $question; ?>"></input>
+        </div>
+        <div>
+            <label for="answer">security answer</label>
+            <input type="text" name="answer" value="<?php echo $answer; ?>"></input>
+        </div>
+        <input type="submit" value="register" class="button daccent">
+      </form>
     </div>
+  </div>
 </body>
 </html>
