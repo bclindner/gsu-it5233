@@ -22,10 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 	}
 
 	// Declare the credentials to the database
-	$servername = "localhost";
-	$serverusername = "root";
-	$serverpassword = "supersecretpassword";
-	$serverdb = "IT5233";
+        include "srvvar.php";
 
 	// Create connection
 	$conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
