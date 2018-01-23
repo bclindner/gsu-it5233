@@ -1,3 +1,4 @@
+<?php include "protected.php"; ?>
 <?php
 
 // Default the edit attempt flag to false

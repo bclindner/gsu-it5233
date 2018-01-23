@@ -1,3 +1,4 @@
+<?php include "protected.php"; ?>
 <!doctype html>
 <html>
 <head>
