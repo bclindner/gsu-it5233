@@ -35,8 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // Query the database for the username and password entered
   $sql = "SELECT username, password, question, answer FROM users WHERE userid = $userid";
   echo $sql;
-  $result = True;
-  //$result = $conn->query($sql);
+  $result = $conn->query($sql);
 
   // If we get back a row, then pull out the user's details to display
   if ($result->num_rows > 0) {
@@ -47,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $answer = $row['answer'];
   } else {
     // If we don't get back a row, then the specified userid must not exists
-    $errors[] = "The specified useris does not exist";
+    $errors[] = "The specified userid does not exist";
   }
 
 }
@@ -59,9 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $editAttempt = True;
 
   // Declare the credentials to the database
-  $servername = "localhost";
-  $serverusername = "root";
-  $serverdb = "IT5233";
+  include "srvvar.php";
 
   // Create connection
   $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
@@ -106,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Run the query and, if it succeeds, redirect to the login page
     if ($result != True) {
-      $errors[] = "Database error";
+      $errors[] = "database error";
     }
 
   }
@@ -171,9 +168,22 @@ Notes:
         <div class="clear"></div><br>
         <div class="profile">
             <img class="profimg" src="slippy.png" border="0" alt="username">
-            <h1>slippy</h1>
+            <h1><?php echo $username; ?></h1>
             <p>joined jan. 1, 2018</p>
             <div class="clear"></div>
+            <div id="errors">
+              <?php
+              if (count($errors) > 0) {
+                foreach ($errors as $errmsg) {
+              ?>
+                <div class="button red">
+                <?php echo $errmsg; ?>
+                </div>
+              <?php
+                }
+              }
+              ?>
+            </div>
             <form>
             <label for="image">replace profile avatar</label>
             <input type="file" name="image">
