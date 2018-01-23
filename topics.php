@@ -1,3 +1,12 @@
+<?php
+session_start();
+$userid - $_SESSION['userid'];
+if(!empty( $userid )){
+  header('Location: login.php');
+  exit();
+}
+?>
+
 <!doctype html>
 <html>
 <head>
@@ -32,6 +41,7 @@
     <div class="wrap">
         <h1 class="pagetitle left">topics</h1>
         <div class="button accent right headbutton">
+
             <a href="newtopic.php">
                 make new post
             </a>

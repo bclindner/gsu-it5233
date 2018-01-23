@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 // Default the login attempt flag to false
 $loginAttempt = False;
 $errors = array();
@@ -38,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   // Query the database for the username and password entered
-  $sql = "SELECT username FROM users WHERE username = '$username' AND password = '$password'";
+  $sql = "SELECT userid FROM users WHERE username = '$username' AND password = '$password'";
   echo $sql;
   $result = True;
   $result = $conn->query($sql);
@@ -46,6 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // If we get back a row, then the username/password combination must exist
   if ($result->num_rows > 0) {
     header("Location: topics.php");
+    $row = $result->fetch_assoc();
+    $_SESSION['userid'] = $row['userid']
     exit();
   } else {
     $errors[] = "bad username / password combination";
