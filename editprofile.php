@@ -143,16 +143,16 @@ Notes:
 <body>
     <header class="fancy accent">
         <div class="wrap">
-            <a href="topics.html">
+            <a href="topics.php">
                 <h1>ribbit</h1>
             </a>
             <nav>
                 <ul>
                     <li class="button navbutton">
-                        <a href="topics.html">topics</a>
+                        <a href="topics.php">topics</a>
                     </li>
                     <li class="button navbutton">
-                        <a href="editprofile.html">profile</a>
+                        <a href="editprofile.php">profile</a>
                     </li>
                 </ul>
             </nav>
@@ -164,7 +164,7 @@ Notes:
     <div class="wrap">
         <h1 class="pagetitle left">edit profile</h1>
         <div class="button accent right headbutton">
-            <a href="topics.html">
+            <a href="topics.php">
                 go back
             </a>
         </div>

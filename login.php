@@ -83,7 +83,7 @@ Notes:
     <div class="welcome-hero fancy">
         <div class="accent herobox">
             <form action="" method="POST" class="modal">
-                <a href="index.html">« go back</a>
+                <a href="index.php">« go back</a>
                 <br>
                 <h1>login</h1>
                 <p>please enter your username and password</p>
@@ -96,7 +96,7 @@ Notes:
                     <input type="password" name="password" value="<?php echo $username; ?>">
                 </div>
                 <input type="submit" value="submit" class="button daccent">
-                <div><a href="reset.html">forgot your password?</a></div>
+                <div><a href="reset.php">forgot your password?</a></div>
             </form>
         </div>
     </div>

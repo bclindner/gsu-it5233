@@ -101,7 +101,7 @@ Notes:
     <div class="welcome-hero fancy">
         <div class="accent herobox modal">
             <form action="" method="POST">
-                <a href="index.html">« go back</a>
+                <a href="index.php">« go back</a>
                 <h1>register</h1>
                 <p>note: you must be a frog to register for ribbit.</p>
                 <p>please fill out the following fields</p>
