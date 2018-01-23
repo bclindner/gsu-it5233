@@ -11,45 +11,45 @@ $password = "";
 // If someone is attempting to login, process their request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	// Make note that we're attempting a login
-	$loginAttempt = True;
+  // Make note that we're attempting a login
+  $loginAttempt = True;
 
-	// Declare the credentials to the database
-        include "srvvar.php";
+  // Declare the credentials to the database
+  include "srvvar.php";
 
-	// Create connection
-	$conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
+  // Create connection
+  $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
 
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
-	// Pull the username and password from the <form> POST
-	$username = $_POST['username'];
-	$password = $_POST['password'];
+  // Pull the username and password from the <form> POST
+  $username = $_POST['username'];
+  $password = $_POST['password'];
 
-	// Validate the user input
-	if (empty($username)) {
-		$errors[] = "Missing username";
-	}
-	if (empty($password)) {
-		$errors[] = "Missing password";
-	}
+  // Validate the user input
+  if (empty($username)) {
+    $errors[] = "missing username";
+  }
+  if (empty($password)) {
+    $errors[] = "missing password";
+  }
 
-	// Query the database for the username and password entered
-	$sql = "SELECT username FROM users WHERE username = '$username' AND password = '$password'";
-	echo $sql;
-	$result = True;
-	$result = $conn->query($sql);
+  // Query the database for the username and password entered
+  $sql = "SELECT username FROM users WHERE username = '$username' AND password = '$password'";
+  echo $sql;
+  $result = True;
+  $result = $conn->query($sql);
 
-	// If we get back a row, then the username/password combination must exist
-	if ($result->num_rows > 0) {
-		header("Location: topics.php");
-		exit();
-	} else {
-		$errors[] = "Bad username and/or password combination";
-	}
+  // If we get back a row, then the username/password combination must exist
+  if ($result->num_rows > 0) {
+    header("Location: topics.php");
+    exit();
+  } else {
+    $errors[] = "bad username / password combination";
+  }
 }
 
 /**
@@ -86,6 +86,24 @@ Notes:
                 <a href="index.php">« go back</a>
                 <br>
                 <h1>login</h1>
+                <?php if ($_GET["register"] == "success") { ?>
+                  <div id="success" class="button daccent">
+                    registered successfully!
+                  </div>
+                <?php } ?>
+                <div id="errors">
+                  <?php
+                  if (count($errors) > 0) {
+                    foreach ($errors as $errmsg) {
+                  ?>
+                    <div class="button red">
+                    <?php echo $errmsg; ?>
+                    </div>
+                  <?php
+                    }
+                  }
+                  ?>
+                </div>
                 <p>please enter your username and password</p>
                 <div>
                     <label for="username">username</label>

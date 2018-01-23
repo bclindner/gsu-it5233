@@ -14,102 +14,102 @@ $answer = "";
 // If someone is accessing this page for the first time, try and grab the userid from the GET request
 // then pull the user's details from the database
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-	$userid = $_GET['userid'];
+  $userid = $_GET['userid'];
 
-	// Validate there was a userid in the URL
-	if (empty($userid)) {
-		$errors[] = "Missing userid";
-	}
+  // Validate there was a userid in the URL
+  if (empty($userid)) {
+    $errors[] = "Missing userid";
+  }
 
-	// Declare the credentials to the database
-        include "srvvar.php";
+  // Declare the credentials to the database
+  include "srvvar.php";
 
-	// Create connection
-	$conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
+  // Create connection
+  $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
 
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
-	// Query the database for the username and password entered
-	$sql = "SELECT username, password, question, answer FROM users WHERE userid = $userid";
-	echo $sql;
-	$result = True;
-	//$result = $conn->query($sql);
+  // Query the database for the username and password entered
+  $sql = "SELECT username, password, question, answer FROM users WHERE userid = $userid";
+  echo $sql;
+  $result = True;
+  //$result = $conn->query($sql);
 
-	// If we get back a row, then pull out the user's details to display
-	if ($result->num_rows > 0) {
-		$row = $result->fetch_assoc();
-		$username = $row['username'];
-		$password = $row['password'];
-		$question = $row['question'];
-		$answer = $row['answer'];
-	} else {
-		// If we don't get back a row, then the specified userid must not exists
-		$errors[] = "The specified useris does not exist";
-	}
+  // If we get back a row, then pull out the user's details to display
+  if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $username = $row['username'];
+    $password = $row['password'];
+    $question = $row['question'];
+    $answer = $row['answer'];
+  } else {
+    // If we don't get back a row, then the specified userid must not exists
+    $errors[] = "The specified useris does not exist";
+  }
 
 }
 
 // If someone is attempting to edit their profile, process the request
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-	// Make note that we're attempting an edit
-	$editAttempt = True;
+  // Make note that we're attempting an edit
+  $editAttempt = True;
 
-	// Declare the credentials to the database
-	$servername = "localhost";
-	$serverusername = "root";
-	$serverdb = "IT5233";
+  // Declare the credentials to the database
+  $servername = "localhost";
+  $serverusername = "root";
+  $serverdb = "IT5233";
 
-	// Create connection
-	$conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
+  // Create connection
+  $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
 
-	// Check connection
-	if ($conn->connect_error) {
-		die("Connection failed: " . $conn->connect_error);
-	}
+  // Check connection
+  if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+  }
 
-	// Pull the userid, username, password, question, and answer from the <form> POST
-	$userid = $_POST['userid'];
-	$username = $_POST['username'];
-	$password = $_POST['password'];
-	$question = $_POST['question'];
-	$answer = $_POST['answer'];
+  // Pull the userid, username, password, question, and answer from the <form> POST
+  $userid = $_POST['userid'];
+  $username = $_POST['username'];
+  $password = $_POST['password'];
+  $question = $_POST['question'];
+  $answer = $_POST['answer'];
 
-	// Validate the user input
-	if (empty($userid)) {
-		$errors[] = "Missing userid";
-	}
-	if (empty($username)) {
-		$errors[] = "Missing username";
-	}
-	if (empty($password)) {
-		$errors[] = "Missing password";
-	}
-	if (empty($question)) {
-		$errors[] = "Missing security question";
-	}
-	if (empty($answer)) {
-		$errors[] = "Missing answer to security question";
-	}
+  // Validate the user input
+  if (empty($userid)) {
+    $errors[] = "Missing userid";
+  }
+  if (empty($username)) {
+    $errors[] = "Missing username";
+  }
+  if (empty($password)) {
+    $errors[] = "Missing password";
+  }
+  if (empty($question)) {
+    $errors[] = "Missing security question";
+  }
+  if (empty($answer)) {
+    $errors[] = "Missing answer to security question";
+  }
 
-	// Only try to insert the data if there are no validation errors
-	if (sizeof($errors) == 0) {
+  // Only try to insert the data if there are no validation errors
+  if (sizeof($errors) == 0) {
 
-		// Update the database for this userid
-		$sql = "UPDATE users SET username = '$username', password = '$password', question = '$question', answer = '$answer' WHERE userid = $userid";
-		echo $sql;
-		$result = False;
-		//$result = $conn->query($sql);
+    // Update the database for this userid
+    $sql = "UPDATE users SET username = '$username', password = '$password', question = '$question', answer = '$answer' WHERE userid = $userid";
+    echo $sql;
+    $result = False;
+    //$result = $conn->query($sql);
 
-		// Run the query and, if it succeeds, redirect to the login page
-		if ($result != True) {
-			$errors[] = "Database error";
-		}
+    // Run the query and, if it succeeds, redirect to the login page
+    if ($result != True) {
+      $errors[] = "Database error";
+    }
 
-	}
+  }
 
 /**
 If we get to here, there are a couple of possible scenarios that affect how we display the page.
