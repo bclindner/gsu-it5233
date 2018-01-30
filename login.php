@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if ($result->num_rows > 0) {
     header("Location: topics.php");
     $row = $result->fetch_assoc();
-    $_SESSION['userid'] = $row['userid']
+    $_SESSION['userid'] = $row['userid'];
     exit();
   } else {
     $errors[] = "bad username / password combination";
