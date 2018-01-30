@@ -1,11 +1,4 @@
-<?php
-session_start();
-$userid = $_SESSION['userid'];
-if(empty( $userid )){
-  header('Location: index.php');
-  exit();
-}
-?>
+<?php include "protected.php"; ?>
 
 <!doctype html>
 <html>
@@ -23,16 +16,7 @@ if(empty( $userid )){
             <a href="topics.php">
                 <h1>ribbit</h1>
             </a>
-            <nav>
-                <ul>
-                    <li class="button navbutton">
-                        <a href="topics.php">topics</a>
-                    </li>
-                    <li class="button navbutton">
-                        <a href="editprofile.php">profile</a>
-                    </li>
-                </ul>
-            </nav>
+            <?php include "nav.php"; ?>
             <div class="loggedin right">logged in as <strong>slippy</strong></div>
             <div class="clear"></div>
         </div>

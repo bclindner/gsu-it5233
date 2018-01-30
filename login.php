@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   // Query the database for the username and password entered
-  $sql = "SELECT userid FROM users WHERE username = '$username' AND password = '$password'";
+  $sql = "SELECT userid, is_admin FROM users WHERE username = '$username' AND password = '$password'";
   echo $sql;
   $result = True;
   $result = $conn->query($sql);
@@ -49,6 +49,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header("Location: topics.php");
     $row = $result->fetch_assoc();
     $_SESSION['userid'] = $row['userid'];
+    if($row['is_admin'] == "1"){
+      $_SESSION['isadmin'] == "true";
+    }
     exit();
   } else {
     $errors[] = "bad username / password combination";
