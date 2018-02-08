@@ -1,5 +1,5 @@
 <div class="topic">
-    <img class="profimg" src="kermit.jpg" border="0" alt="username">
+    <img class="profimg" src="img/kermit.jpg" border="0" alt="username">
     <a href="comments.php">
         <h2 class="topictitle">test post, please ignore</h2>
     </a>
