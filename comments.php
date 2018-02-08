@@ -1,25 +1,12 @@
-<?php include "protected.php"; ?>
+<?php include "inc/protected.php"; ?>
 <!doctype html>
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <meta name="author" content="Brian Lindner">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
-    <link rel="stylesheet" type="text/css" href="ribbit.css">
-    <meta charset="utf-8">
+    <?php include "inc/meta.php"; ?>
 </head>
 <body>
-    <header class="fancy accent">
-        <div class="wrap">
-            <a href="topics.php">
-                <h1>ribbit</h1>
-            </a>
-            <?php include "nav.php"; ?>
-            <div class="loggedin right">logged in as <strong>slippy</strong></div>
-            <div class="clear"></div>
-        </div>
-    </header>
+    <?php include "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <div class="button accent left headbutton">
@@ -41,40 +28,10 @@
         </div>
         <br>
         <p>comments</p>
-        <div class="comment">
-            <img class="profimg" src="kermit.jpg" border="0" alt="username">
-            <p><b>kermit</b></p>
-            <p> on jan. 16, 2018, 00:02</p>
-            <div class="clear"></div>
-            <p class="content">ffs not everything is about wednesdays</p>
-        </div>
-        <div class="comment">
-            <img class="profimg" src="kermit.jpg" border="0" alt="username">
-            <p><b>kermit</b></p>
-            <p> on jan. 16, 2018, 00:02</p>
-            <div class="clear"></div>
-            <p class="content">what is wrong with you</p>
-        </div>
-        <div class="comment">
-            <img class="profimg" src="wednesday-frog.jpg" border="0" alt="username">
-            <p><b>wednesday_frog</b></p>
-            <p> on jan. 16, 2018, 00:03</p>
-            <div class="clear"></div>
-            <p class="content">i don't know what you're talking about my dude</p>
-        </div>
-        <div class="button accent right headbutton">
-            <a href="newcomment.php">
-                add new comment
-            </a>
-        </div>
+        <?php include "inc/comment.php"; ?>
         <div class="clear"></div>
     </div>
-
     </main>
-    <footer class="dark">
-        <div class="wrap">
-        <p>ribbit copyright &copy; 2018 brian lindner.</p>
-        </div>
-    </footer>
+    <?php include "inc/footer.php"; ?>
 </body>
 </html>

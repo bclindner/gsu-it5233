@@ -1,4 +1,4 @@
-<?php include "protected.php"; ?>
+<?php include "inc/protected.php"; ?>
 <?php
 
 // Default the edit attempt flag to false
@@ -132,23 +132,10 @@ Notes:
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <meta name="author" content="Brian Lindner">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="ribbit.css">
-    <meta charset="utf-8">
+    <?php include "inc/meta.php"; ?>
 </head>
 <body>
-    <header class="fancy accent">
-        <div class="wrap">
-            <a href="topics.php">
-                <h1>ribbit</h1>
-            </a>
-            <?php include "nav.php"; ?>
-            <div class="loggedin right">logged in as <strong>slippy</strong></div>
-            <div class="clear"></div>
-        </div>
-    </header>
+    <?php include "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <h1 class="pagetitle left">edit profile</h1>
@@ -195,12 +182,7 @@ Notes:
         <br>
         <div class="clear"></div>
     </div>
-
     </main>
-    <footer class="dark">
-        <div class="wrap">
-        <p>ribbit copyright &copy; 2018 brian lindner.</p>
-        </div>
-    </footer>
+    <?php include "inc/footer.php"; ?>
 </body>
 </html>
