@@ -18,14 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Declare the credentials to the database
   include "srvvar.php";
 
-  // Create connection
-  $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
-
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
-
   // Pull the username and password from the <form> POST
   $username = $_POST['username'];
   $password = $_POST['password'];

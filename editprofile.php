@@ -22,16 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $errors[] = "Missing userid";
   }
 
-  // Declare the credentials to the database
   include "srvvar.php";
-
-  // Create connection
-  $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
-
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
 
   // Query the database for the username and password entered
   $sql = "SELECT username, password, question, answer FROM users WHERE userid = $userid";
