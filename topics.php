@@ -1,4 +1,11 @@
-<?php include "inc/protected.php"; ?>
+<?php
+include "inc/protected.php";
+include "inc/topicpreview.php";
+
+// make a server connection
+include "inc/dbconn.php";
+$result = $conn->query("SELECT * from topics ORDER BY timeCreated DESC");
+?>
 <!doctype html>
 <html>
 <head>
@@ -16,7 +23,11 @@
             </a>
         </div>
         <div class="clear"></div>
-        <?php include "inc/topicpreview.php" ?>
+        <?php
+          while($row = $mysql_fetch_assoc($result)){
+            topicPreview($row['username'], $row['title'], $row['timeCreated']);
+          }
+        ?>
     </div>
     </main>
     <?php include "inc/footer.php"; ?>
