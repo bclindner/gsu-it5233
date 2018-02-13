@@ -1,6 +1,6 @@
 <?php
 function topicPreview($row) {
-  $id = $row['id'];
+  $id = $row['topicID'];
   $author = $row['author'];
   $title = $row['title'];
   $datePosted = $row['timeCreated'];
