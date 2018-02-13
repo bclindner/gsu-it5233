@@ -10,6 +10,8 @@ $result = True;
 $result = $conn->query($sql);
 if ($result->num_rows > 0) {
   $topic = $result->fetch_assoc();
+} else {
+  header("Location: 404.php");
 }
 
 // grab the comments from the db relating to this page

@@ -4,7 +4,7 @@ include 'inc/protected.php';
 include 'inc/dbconn.php';
 
 // Query the database for the username and password entered
-$sql = "SELECT * FROM users";
+$sql = 'SELECT * FROM users';
 echo $sql;
 $result = True;
 $result = $conn->query($sql);
