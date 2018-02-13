@@ -24,8 +24,8 @@ $result = $conn->query("SELECT * from topics ORDER BY timeCreated DESC");
         </div>
         <div class="clear"></div>
         <?php
-          while($row = $mysql_fetch_assoc($result)){
-            topicPreview($row['username'], $row['title'], $row['timeCreated']);
+          while($row = $result->fetch_assoc()){
+            topicPreview($row);
           }
         ?>
     </div>

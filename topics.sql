@@ -6,7 +6,7 @@ create table topics
   author varchar(255) not null, /* for simplicity - we'd normally use foreign key*/
   content varchar(2000) not null,
   timeCreated datetime not null,
-  primary key (topicID),
+  primary key (topicID)
 );
 create table comments
 (
@@ -14,7 +14,7 @@ create table comments
   author varchar(255) not null, /* for simplicity - we'd normally use foreign key*/
   content varchar(2000) not null,
   timeCreated datetime not null,
-  primary key (commentID),
+  primary key (commentID)
 );
 create table topic_comments
 (
