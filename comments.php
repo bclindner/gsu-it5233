@@ -1,6 +1,7 @@
 <?php
 include "inc/protected.php";
 include "inc/comment.php";
+include "inc/topic.php";
 
 include 'inc/dbconn.php';
 
@@ -20,11 +21,11 @@ $result = True;
 $result = $conn->query($sql);
 
 // Go through each row from the database and store it in an array
-$topics = array();
+$comments = array();
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $topics[] = $row;
+        $comments[] = $row;
     }
 }
 ?>
@@ -49,15 +50,14 @@ if ($result->num_rows > 0) {
             </a>
         </div>
         <div class="clear"></div><br>
-        <div class="topic">
-            <img class="profimg" src="img/wednesday-frog.jpg" border="0" alt="username">
-            <h2 class="topictitle">it is wednesday, my dudes</h2>
-            <p class="byline">by <a href="profile.php">wednesday_frog</a> on jan. 17, 2018, 00:00</p>
-            <p class="content">it is wednesday, my dudes. it is wednesday, my dudes. it is wednesday, my dudes. it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.it is wednesday, my dudes.</p>
-        </div>
+        <?php topic($topic); ?>
         <br>
         <p>comments</p>
-        <?php include "inc/comment.php"; ?>
+        <?php
+        foreach($comments as $comment){
+          comment($comment);
+        }
+        ?>
         <div class="clear"></div>
     </div>
     </main>
