@@ -4,7 +4,7 @@ body {
     font-family: "Montserrat", sans-serif;
     background-color: #1d1f21;
 }
-main { 
+main {
     background-color: white;
 }
 a:link, a:visited {
@@ -155,6 +155,11 @@ nav ul li {
 }
 .topictitle{
     padding: 1em 0 0 0;
+}
+
+/* tables */
+td {
+  padding: 1em;
 }
 
 /* form */
