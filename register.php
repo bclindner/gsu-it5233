@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $registerAttempt = True;
 
   // Declare the credentials to the database
-  include "srvvar.php";
+  include "inc/dbconn.php";
 
   // Pull the username, password, question, and answer from the <form> POST
   $username = $_POST['username'];

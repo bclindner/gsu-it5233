@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $errors[] = "Missing userid";
   }
 
-  include "srvvar.php";
+  include "inc/dbconn.php";
 
   // Query the database for the username and password entered
   $sql = "SELECT username, password, question, answer FROM users WHERE userid = $userid";
@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $editAttempt = True;
 
   // Declare the credentials to the database
-  include "srvvar.php";
+  include "inc/dbconn.php";
 
   // Create connection
   $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
