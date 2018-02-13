@@ -37,13 +37,13 @@ if ($result->num_rows > 0) {
         <td>username</td>
         <td>password</td>
       </tr>
-      <? foreach ($users as $user) { ?>
+      <?php foreach ($users as $user) { ?>
         <tr>
-          <td><?php echo $user['id']; ?></td>
+          <td><?php echo $user['userid']; ?></td>
           <td><?php echo $user['username']; ?></td>
           <td><?php echo $user['password']; ?></td>
         </tr>
-      <? } ?>
+      <?php } ?>
     </table>
     </div>
     </main>
