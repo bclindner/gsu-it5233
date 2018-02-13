@@ -1,4 +1,31 @@
-<?php include "inc/protected.php"; ?>
+<?php
+include "inc/protected.php";
+include "inc/comment.php";
+
+include 'inc/dbconn.php';
+
+// grab the topic from the db relating to this page
+$sql = "SELECT * FROM topics WHERE topicID = ".$_GET['topicid']." LIMIT 1";
+$result = True;
+$result = $conn->query($sql);
+if ($result->num_rows > 0) {
+  $topic = $result->fetch_assoc();
+}
+
+// grab the comments from the db relating to this page
+$sql = "SELECT * FROM comments WHERE topicID = ".$_GET['topicid']."  ORDER BY timeCreated DESC";
+$result = True;
+$result = $conn->query($sql);
+
+// Go through each row from the database and store it in an array
+$topics = array();
+if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        $topics[] = $row;
+    }
+}
+?>
 <!doctype html>
 <html>
 <head>
@@ -16,7 +43,7 @@
         </div>
         <div class="button accent right headbutton">
             <a href="newcomment.php">
-                add new comment
+                post new comment
             </a>
         </div>
         <div class="clear"></div><br>

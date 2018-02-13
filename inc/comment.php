@@ -1,7 +1,13 @@
+<?php function comment($row) {
+  $username = $row['author'];
+  $content = $row['content'];
+  $date = $row['timeCreated'];
+?>
 <div class="comment">
-    <img class="profimg" src="img/kermit.jpg" border="0" alt="username">
-    <p><b>kermit</b></p>
-    <p> on jan. 16, 2018, 00:02</p>
-    <div class="clear"></div>
-    <p class="content">ffs not everything is about wednesdays</p>
+  <img class="profimg" src="img/<?php echo $username; ?>.jpg" border="0" alt="<?php echo $username; ?>">
+  <p><b><?php echo $username; ?></b></p>
+  <p> on <?php echo $date; ?></p>
+  <div class="clear"></div>
+  <p class="content"><?php echo $content; ?></p>
 </div>
+<?php } ?>

@@ -1,22 +1,23 @@
 <?php
-include "inc/protected.php";
-include "inc/topicpreview.php";
 
+include 'inc/protected.php';
 include 'inc/dbconn.php';
 
 // Query the database for the username and password entered
-$sql = "SELECT * from topics ORDER BY timeCreated DESC";
+$sql = "SELECT * FROM users";
+echo $sql;
 $result = True;
 $result = $conn->query($sql);
 
 // Go through each row from the database and store it in an array
-$topics = array();
+$users = array();
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-        $topics[] = $row;
+        $users[] = $row;
     }
 }
+
 ?>
 <!doctype html>
 <html>
@@ -28,18 +29,22 @@ if ($result->num_rows > 0) {
     <?php include "inc/header.php"; ?>
     <main>
     <div class="wrap">
-        <h1 class="pagetitle left">topics</h1>
-        <div class="button accent right headbutton">
-            <a href="newtopic.php">
-                post new topic
-            </a>
-        </div>
+        <h1 class="pagetitle left">admin</h1>
         <div class="clear"></div>
-        <?php
-          foreach($topics as $topic){
-            topicPreview($topic);
-          }
-        ?>
+    <table>
+      <tr/>
+        <td>user id</td>
+        <td>username</td>
+        <td>password</td>
+      </tr>
+      <? foreach ($users as $user) { ?>
+        <tr>
+          <td><?php echo $user['id']; ?></td>
+          <td><?php echo $user['username']; ?></td>
+          <td><?php echo $user['password']; ?></td>
+        </tr>
+      <? } ?>
+    </table>
     </div>
     </main>
     <?php include "inc/footer.php"; ?>
