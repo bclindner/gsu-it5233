@@ -159,10 +159,8 @@ Notes:
             <input type="file" name="image">
             <label for="username">change username</label>
             <input type="text" name="username" value="<?php echo $username; ?>">
-            <label for="cpass">current password</label>
-            <input type="password" name="cpass" value="<?php echo $password; ?>">
-            <label for="npass">new password</label>
-            <input type="password" name="npass" value="<?php echo $password; ?>">
+            <label for="pass">new password</label>
+            <input type="password" name="pass" value="<?php echo $password; ?>">
             <label for="question">security question</label>
             <input type="text" name="question" value="<?php echo $question; ?>">
             <label for="answer">security answer</label>
