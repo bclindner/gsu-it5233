@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
   // Validate there was a userid in the URL
   if (empty($userid)) {
-    $errors[] = "Missing userid";
+    $errors[] = "missing userid";
   }
 
   include "inc/dbconn.php";
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $answer = $row['answer'];
   } else {
     // If we don't get back a row, then the specified userid must not exists
-    $errors[] = "The specified userid does not exist";
+    $errors[] = "the specified userid does not exist";
   }
 
 }
