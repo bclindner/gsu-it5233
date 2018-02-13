@@ -4,7 +4,7 @@
             <h1>ribbit</h1>
         </a>
         <?php include "nav.php"; ?>
-        <div class="loggedin right">logged in as <strong>slippy</strong></div>
+        <div class="loggedin right">logged in as <strong>slippy</strong> | <strong><a href="logout.php">logout</a></div>
         <div class="clear"></div>
     </div>
 </header>
