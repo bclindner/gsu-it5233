@@ -135,7 +135,7 @@ Notes:
         </div>
         <div class="clear"></div><br>
         <div class="profile">
-            <img class="profimg" src="inc/slippy.png" border="0" alt="username">
+          <img class="profimg" src="img/<?php echo $username; ?>.jpg" border="0" alt="username">
             <h1><?php echo $username; ?></h1>
             <p>joined jan. 1, 2018</p>
             <div class="clear"></div>
