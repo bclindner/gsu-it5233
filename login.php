@@ -30,22 +30,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors[] = "missing password";
   }
 
-  // Query the database for the username and password entered
-  $sql = "SELECT userid, is_admin FROM users WHERE username = '$username' AND password = '$password'";
-  echo $sql;
-  $result = True;
-  $result = $conn->query($sql);
-
-  // If we get back a row, then the username/password combination must exist
-  if ($result->num_rows > 0) {
-    header("Location: topics.php");
-    $row = $result->fetch_assoc();
-    $_SESSION['userid'] = $row['userid'];
-    if($row['is_admin'] == "1"){
-      $_SESSION['isadmin'] == "true";
+  // query db for u/p combo using PDO
+  $sql = "SELECT userid, is_admin FROM users WHERE true";
+  $stm = $pdo->prepare($sql);
+  $res = $stm->execute();
+  if($stm->rowCount() > 0){
+    // get our user row
+    $usr = $stm->fetch();
+    // set session data accordingly
+    $_SESSION['userid'] = $usr['userid'];
+    if($usr['is_admin']){
+      $_SESSION['is_admin'] = true;
     }
+    // redirect the user
+    header("Location: topics.php");
     exit();
   } else {
+    // throw an error in the page if we don't get a user
     $errors[] = "bad username / password combination";
   }
 }
@@ -73,7 +74,7 @@ Notes:
     <title>ribbit - login</title>
     <meta name="author" content="Brian Lindner">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="ribbit.css">
     <meta charset="utf-8">
 </head>
@@ -84,7 +85,7 @@ Notes:
                 <a href="index.php">« go back</a>
                 <br>
                 <h1>login</h1>
-                <?php if ($_GET["register"] == "success") { ?>
+                <?php if (!empty($_GET["register"])) { ?>
                   <div id="success" class="button daccent">
                     registered successfully!
                   </div>
