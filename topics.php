@@ -6,7 +6,7 @@ include 'inc/dbconn.php';
 
 // Query the database for the username and password entered
 $sql = "SELECT * from topics ORDER BY timeCreated DESC";
-$stm = $pdo->prepare($stm);
+$stm = $pdo->prepare($sql);
 $stm->execute();
 // Go through each row from the database and store it in an array
 $topics = array();
