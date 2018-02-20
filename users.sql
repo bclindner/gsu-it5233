@@ -4,5 +4,6 @@ create table users (
   password varchar(255) not null,
   question varchar(255) not null,
   answer varchar(255) not null,
+  is_admin boolean default 0,
   primary key (userid)
 );
