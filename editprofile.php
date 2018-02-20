@@ -1,6 +1,7 @@
 <?php
 
 include "inc/protected.php";
+include "inc/dbconn.php";
 
 // Default the edit attempt flag to false
 
@@ -24,7 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $errors[] = "missing userid";
   }
 
-  include "inc/dbconn.php";
 
   // Query the database for the username and password entered
   $sql = "SELECT username, password, question, answer FROM users WHERE userid = ?";
@@ -51,15 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $editAttempt = True;
 
   // Declare the credentials to the database
-  include "inc/dbconn.php";
 
-  // Create connection
-  $conn = new mysqli($servername, $serverusername, $serverpassword, $serverdb);
-
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
 
   // Pull the userid, username, password, question, and answer from the <form> POST
   $userid = $_POST['userid'];
