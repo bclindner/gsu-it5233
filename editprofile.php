@@ -132,7 +132,7 @@ Notes:
             <p>joined jan. 1, 2018</p>
             <div class="clear"></div>
             <?php include 'inc/errors.php' ?>
-            <form>
+            <form method="POST">
             <label for="image">replace profile avatar</label>
             <input type="file" name="image">
             <label for="username">change username</label>

@@ -31,20 +31,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   // query db for u/p combo using PDO
-  $sql = "SELECT userID, is_admin FROM users WHERE username = ? and password = ?";
+  $sql = "SELECT userID, is_admin, password FROM users WHERE username = ?";
   $stm = $pdo->prepare($sql);
-  $stm->execute([$username, $password]);
-  if($stm->rowCount() > 0){
+  $stm->execute([$username]);
+  if($stm->rowCount() == 1){
     // get our user row
     $usr = $stm->fetch();
-    // set session data accordingly
-    $_SESSION['userid'] = $usr['userID'];
-    if($usr['is_admin']){
-      $_SESSION['is_admin'] = true;
+    error_log($password." / ".$usr['password']);
+    if(password_verify($password, $usr['password'])){
+      // set session data accordingly
+      $_SESSION['userid'] = $usr['userID'];
+      if($usr['is_admin']){
+        $_SESSION['is_admin'] = true;
+      }
+      // redirect the user
+      header("Location: topics.php");
+      exit();
+    } else {
+      // throw an error in the page if we don't get a user
+      $errors[] = "bad username / password combination (pw)";
     }
-    // redirect the user
-    header("Location: topics.php");
-    exit();
   } else {
     // throw an error in the page if we don't get a user
     $errors[] = "bad username / password combination";
@@ -98,7 +104,7 @@ Notes:
                 </div>
                 <div>
                     <label for="password">password</label>
-                    <input type="password" name="password" value="<?php echo $username; ?>">
+                    <input type="password" name="password" value="<?php echo $password; ?>">
                 </div>
                 <input type="submit" value="submit" class="button daccent">
                 <div><a href="reset.php">forgot your password?</a></div>
