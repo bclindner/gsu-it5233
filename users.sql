@@ -1,6 +1,6 @@
 use IT5233;
 create table users (
-  userID int not null auto_increment,
+  userID varchar(16) not null,
   username varchar(255) not null unique,
   password varchar(255) not null,
   question varchar(255) not null,
