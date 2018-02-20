@@ -72,19 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       <form action="" method="POST">
         <a href="login.php">« go back</a>
         <h1>password reset</h1>
-        <div id="errors">
-          <?php
-          if (count($errors) > 0) {
-            foreach ($errors as $errmsg) {
-          ?>
-            <div class="button red">
-            <?php echo $errmsg; ?>
-            </div>
-          <?php
-            }
-          }
-          ?>
-        </div>
+        <?php include "inc/errors.php" ?>
         <p>please fill out the following fields</p>
         <?php if (!empty($password)) { ?>
         <div>
