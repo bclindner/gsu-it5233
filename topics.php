@@ -5,7 +5,7 @@ include "inc/topicpreview.php";
 include 'inc/dbconn.php';
 
 // Query the database for the username and password entered
-$sql = "SELECT * from topics ORDER BY timeCreated DESC";
+$sql = "SELECT * from topics LEFT JOIN users ON topics.userID = users.userID ORDER BY timeCreated DESC";
 $stm = $pdo->prepare($sql);
 $stm->execute();
 // Go through each row from the database and store it in an array

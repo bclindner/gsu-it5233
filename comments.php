@@ -6,7 +6,7 @@ include "inc/topic.php";
 include 'inc/dbconn.php';
 
 // grab the topic from the db relating to this page and set it to a var
-$sql = "SELECT * from topics WHERE topicID = ?";
+$sql = "SELECT * from topics LEFT JOIN users ON users.userID = topics.userID WHERE topicID = ?";
 $stm = $pdo->prepare($sql);
 $stm->execute([$_GET['topicid']]);
 if($stm->rowCount() > 0){
@@ -22,7 +22,7 @@ else {
 unset($stm);
 
 // grab the comments from the db relating to this page and put them in an array
-$sql = "SELECT * FROM comments WHERE topicID = ? ORDER BY timeCreated DESC";
+$sql = "SELECT * FROM comments LEFT JOIN users ON users.userID = comments.userID WHERE topicID = ? ORDER BY timeCreated DESC";
 $stm = $pdo->prepare($sql);
 $stm->execute([$_GET['topicid']]);
 // Go through each row from the database and store it in an array

@@ -1,5 +1,5 @@
 <?php function topic($row){
-  $username = $row['author'];
+  $username = $row['username'];
   $title = $row['title'];
   $date = $row['timeCreated'];
   $content = $row['content'];

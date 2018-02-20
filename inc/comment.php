@@ -1,5 +1,5 @@
 <?php function comment($row) {
-  $username = $row['author'];
+  $username = $row['username'];
   $content = $row['content'];
   $date = $row['timeCreated'];
 ?>
