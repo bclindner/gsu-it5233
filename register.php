@@ -45,7 +45,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (sizeof($errors) == 0) {
 
     // Construct a SQL statement to perform the insert operation
-    $sql = "INSERT INTO users (userid, username, password, question, answer) VALUES (?, ?, ?, ?, ?)";
+    $sql = "INSERT INTO users (userID, username, password, question, answer) VALUES (?, ?, ?, ?, ?)";
+    $password = password_hash($password, PASSWORD_BCRYPT);
     $uid = bin2hex(random_bytes(8));
     $stm = $pdo->prepare($sql);
     $res = $stm->execute([$uid, $username, $password, $question, $answer]);
