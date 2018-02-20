@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors[] = "missing username";
   }
   if (empty($password)) {
-    $errors[] = "nissing password";
+    $errors[] = "missing password";
   }
   if (empty($question)) {
     $errors[] = "missing security question";
@@ -45,15 +45,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (sizeof($errors) == 0) {
 
     // Construct a SQL statement to perform the insert operation
-    $sql = "INSERT INTO users (username, password, question, answer) VALUES ('$username', '$password', '$question', '$answer')";
-    echo $sql;
-
-    // Attempt to add the new user to the database
-    $result = False;
-    $result = $conn->query($sql);
-
-    // Run the query and, if it succeeds, redirect to the login page
-    if ($result == True) {
+    $sql = "INSERT INTO users (username, password, question, answer) VALUES (?, ?, ?, ?)";
+    $stm = $pdo->prepare($sql);
+    $res = $stm->execute([$username, $password, $question, $answer]);
+    if ($res == True) {
       header("Location: login.php?register=success");
       exit();
     } else {
@@ -85,7 +80,7 @@ Notes:
   <title>ribbit - register</title>
   <meta name="author" content="Brian Lindner">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="ribbit.css">
   <meta charset="utf-8">
 </head>
