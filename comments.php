@@ -5,29 +5,29 @@ include "inc/topic.php";
 
 include 'inc/dbconn.php';
 
-// grab the topic from the db relating to this page
-$sql = "SELECT * FROM topics WHERE topicID = ".$_GET['topicid']." LIMIT 1";
-$result = True;
-$result = $conn->query($sql);
-if ($result->num_rows > 0) {
-  $topic = $result->fetch_assoc();
-} else {
+// grab the topic from the db relating to this page and set it to a var
+$sql = "SELECT * from topics WHERE topicID = ?";
+$stm = $pdo->prepare($sql);
+$stm->execute([$_GET['topicid']]);
+if($stm->rowCount() > 0){
+  $topic = $stm->fetch();
+}
+else {
+  // give them a 404 if no topic is returned
   header("Location: 404.php");
+  exit();
 }
 
-// grab the comments from the db relating to this page
-$sql = "SELECT * FROM comments WHERE topicID = ".$_GET['topicid']."  ORDER BY timeCreated DESC";
-$result = True;
-$result = $conn->query($sql);
+// clear the stm in case of weirdness
+unset($stm);
 
+// grab the comments from the db relating to this page and put them in an array
+$sql = "SELECT * FROM comments WHERE topicID = ? ORDER BY timeCreated DESC";
+$stm = $pdo->prepare($sql);
+$stm->execute([$_GET['topicid']]);
 // Go through each row from the database and store it in an array
 $comments = array();
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $comments[] = $row;
-    }
-}
+$comments = $stm->fetchAll();
 ?>
 <!doctype html>
 <html>

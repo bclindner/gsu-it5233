@@ -1,7 +1,9 @@
-<?php include "inc/protected.php"; ?>
 <?php
 
+include "inc/protected.php";
+
 // Default the edit attempt flag to false
+
 $editAttempt = False;
 $errors = array();
 
@@ -25,13 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   include "inc/dbconn.php";
 
   // Query the database for the username and password entered
-  $sql = "SELECT username, password, question, answer FROM users WHERE userid = $userid";
-  echo $sql;
-  $result = $conn->query($sql);
-
+  $sql = "SELECT username, password, question, answer FROM users WHERE userid = ?";
+  $stm = $pdo->prepare($sql);
+  $stm->execute([$userid]);
   // If we get back a row, then pull out the user's details to display
-  if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
+  if ($stm->rowCount() > 0) {
+    $row = $stm->fetch();
     $username = $row['username'];
     $password = $row['password'];
     $question = $row['question'];
@@ -69,32 +70,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Validate the user input
   if (empty($userid)) {
-    $errors[] = "Missing userid";
+    $errors[] = "missing userid";
   }
   if (empty($username)) {
-    $errors[] = "Missing username";
+    $errors[] = "missing username";
   }
   if (empty($password)) {
-    $errors[] = "Missing password";
+    $errors[] = "missing password";
   }
   if (empty($question)) {
-    $errors[] = "Missing security question";
+    $errors[] = "missing security question";
   }
   if (empty($answer)) {
-    $errors[] = "Missing answer to security question";
+    $errors[] = "missing answer to security question";
   }
 
   // Only try to insert the data if there are no validation errors
   if (sizeof($errors) == 0) {
 
     // Update the database for this userid
-    $sql = "UPDATE users SET username = '$username', password = '$password', question = '$question', answer = '$answer' WHERE userid = $userid";
-    echo $sql;
-    $result = False;
-    //$result = $conn->query($sql);
-
-    // Run the query and, if it succeeds, redirect to the login page
-    if ($result != True) {
+    $sql = "UPDATE users SET username = ?, password = ?, question = ?, answer = ? WHERE userid = ?";
+    $stm = $pdo->prepare($sql);
+    $res = $stm->execute([$username, $password, $question, $answer, $userid]);
+    if ($res != True) {
       $errors[] = "database error";
     }
 
@@ -153,6 +151,7 @@ Notes:
             <input type="text" name="question" value="<?php echo $question; ?>">
             <label for="answer">security answer</label>
             <input type="text" name="answer" value="<?php echo $answer; ?>">
+            <input type="hidden" name="userid" value="<?php echo $_GET['userid'];?>">
             <input type="submit" value="save" class="button accent">
             </form>
         </div>

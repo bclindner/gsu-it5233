@@ -6,17 +6,11 @@ include 'inc/dbconn.php';
 // Query the database for the username and password entered
 $sql = 'SELECT * FROM users';
 echo $sql;
-$result = True;
-$result = $conn->query($sql);
-
+$stm = $pdo->prepare($sql);
+$stm->execute();
 // Go through each row from the database and store it in an array
 $users = array();
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-        $users[] = $row;
-    }
-}
+$users = $stm->fetchAll();
 
 ?>
 <!doctype html>
