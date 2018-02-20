@@ -89,19 +89,7 @@ Notes:
                     registered successfully!
                   </div>
                 <?php } ?>
-                <div id="errors">
-                  <?php
-                  if (count($errors) > 0) {
-                    foreach ($errors as $errmsg) {
-                  ?>
-                    <div class="button red">
-                    <?php echo $errmsg; ?>
-                    </div>
-                  <?php
-                    }
-                  }
-                  ?>
-                </div>
+                <?php include 'inc/errors.php' ?>
                 <p>please enter your username and password</p>
                 <div>
                     <label for="username">username</label>

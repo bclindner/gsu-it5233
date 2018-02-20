@@ -141,19 +141,7 @@ Notes:
             <h1><?php echo $username; ?></h1>
             <p>joined jan. 1, 2018</p>
             <div class="clear"></div>
-            <div id="errors">
-              <?php
-              if (count($errors) > 0) {
-                foreach ($errors as $errmsg) {
-              ?>
-                <div class="button red">
-                <?php echo $errmsg; ?>
-                </div>
-              <?php
-                }
-              }
-              ?>
-            </div>
+            <?php include 'inc/errors.php' ?>
             <form>
             <label for="image">replace profile avatar</label>
             <input type="file" name="image">
