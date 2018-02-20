@@ -22,12 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 
   // Validate there was a userid in the URL
   if (empty($userid)) {
-    $errors[] = "missing userid";
+    $errors[] = "missing user id";
   }
 
 
   // Query the database for the username and password entered
-  $sql = "SELECT username, password, question, answer FROM users WHERE userid = ?";
+  $sql = "SELECT username, password, question, answer FROM users WHERE userID = ?";
   $stm = $pdo->prepare($sql);
   $stm->execute([$userid]);
   // If we get back a row, then pull out the user's details to display
@@ -39,7 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $answer = $row['answer'];
   } else {
     // If we don't get back a row, then the specified userid must not exists
-    $errors[] = "the specified userid does not exist";
+    $errors[] = "the specified user id does not exist";
   }
 
 }
@@ -81,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (sizeof($errors) == 0) {
 
     // Update the database for this userid
-    $sql = "UPDATE users SET username = ?, password = ?, question = ?, answer = ? WHERE userid = ?";
+    $sql = "UPDATE users SET username = ?, password = ?, question = ?, answer = ? WHERE userID = ?";
     $stm = $pdo->prepare($sql);
     $res = $stm->execute([$username, $password, $question, $answer, $userid]);
     if ($res != True) {

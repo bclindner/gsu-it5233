@@ -31,14 +31,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   // query db for u/p combo using PDO
-  $sql = "SELECT userid, is_admin FROM users WHERE username = ? and password = ?";
+  $sql = "SELECT userID, is_admin FROM users WHERE username = ? and password = ?";
   $stm = $pdo->prepare($sql);
   $stm->execute([$username, $password]);
   if($stm->rowCount() > 0){
     // get our user row
     $usr = $stm->fetch();
     // set session data accordingly
-    $_SESSION['userid'] = $usr['userid'];
+    $_SESSION['userid'] = $usr['userID'];
     if($usr['is_admin']){
       $_SESSION['is_admin'] = true;
     }

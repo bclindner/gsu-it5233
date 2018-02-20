@@ -33,7 +33,7 @@ $users = $stm->fetchAll();
       </tr>
       <?php foreach ($users as $user) { ?>
         <tr>
-          <td><?php echo $user['userid']; ?></td>
+          <td><?php echo $user['userID']; ?></td>
           <td><?php echo $user['username']; ?></td>
           <td><?php echo $user['password']; ?></td>
         </tr>
