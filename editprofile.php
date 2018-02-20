@@ -137,8 +137,8 @@ Notes:
             <input type="file" name="image">
             <label for="username">change username</label>
             <input type="text" name="username" value="<?php echo $username; ?>">
-            <label for="pass">new password</label>
-            <input type="password" name="pass" value="<?php echo $password; ?>">
+            <label for="password">new password</label>
+            <input type="password" name="password" value="<?php echo $password; ?>">
             <label for="question">security question</label>
             <input type="text" name="question" value="<?php echo $question; ?>">
             <label for="answer">security answer</label>
