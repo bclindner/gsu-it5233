@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(password_verify($password, $usr['password'])){
       // set session data accordingly
       $_SESSION['userid'] = $usr['userID'];
+      $_SESSION['username'] = $username;
       if($usr['is_admin']){
         $_SESSION['is_admin'] = true;
       }
