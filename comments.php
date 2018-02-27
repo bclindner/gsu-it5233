@@ -45,7 +45,7 @@ $comments = $stm->fetchAll();
             </a>
         </div>
         <div class="button accent right headbutton">
-            <a href="newcomment.php">
+          <a href="newcomment.php?topicid=<?php echo $_GET['topicid']; ?>">
                 post new comment
             </a>
         </div>
