@@ -1,4 +1,24 @@
-<?php include "inc/protected.php"; ?>
+<?php
+require_once "inc/protected.php";
+require_once "inc/dbconn.php";
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $errors = array();
+  // pull info from form
+  // formulate and execute query
+  $sql = "INSERT INTO topics (topicID, title, userID, content, timeCreated) VALUES (?, ?, ?, ?, now())";
+  $stm = $pdo->prepare($sql);
+  $tid = bin2hex(random_bytes(8));
+  $content = $_POST['content'];
+  $title = $_POST['title'];
+  $uid = $_SESSION['userid'];
+  $res = $stm->execute([$tid, $title, $uid, $content]);
+  if($res){
+    header("Location: topics.php?topic=$tid");
+  } else {
+    $errors[] = "something went wrong";
+  }
+}
+?>
 <!doctype html>
 <html>
 <head>
@@ -16,11 +36,12 @@
             </a>
         </div>
         <div class="clear"></div><br>
+        <?php require "inc/errors.php"; ?>
         <form method="post" action="">
             <label for="title">title</label>
             <input name="title" type="text">
-            <label for="" name="content">content</label>
-            <textarea rows="5"></textarea>
+            <label for="content" name="content">content</label>
+            <textarea rows="5" name="content"></textarea>
             <input type="submit" value="submit new topic" class="button accent">
         </form>
     </div>
