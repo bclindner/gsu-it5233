@@ -34,6 +34,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (empty($password)) {
     $errors[] = "missing password";
   }
+  // password check: length > 8
+  if(strlen($password) < 8){
+    $errors[] = "password not long enough (must be 8+ chars)";
+  }
+  // password check: requires numbers
+  if(!preg_match("/[0-9]/",$password)){
+    $errors[] = "password requires a number";
+  }
+  // password check: requires mixed case
+  if(!preg_match("/[A-Z]/",$password) || !preg_match("/[a-z]/", $password)){
+    $errors[] = "password requires uppercase & lowercase letters";
+  }
   if (empty($question)) {
     $errors[] = "missing security question";
   }
