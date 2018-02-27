@@ -10,6 +10,6 @@ function topicPreview($row) {
     <a href="comments.php?topicid=<?php echo $id; ?>">
       <h2 class="topictitle"><?php echo $title; ?></h2>
     </a>
-    <p class="byline">by <a href="profile.php"><?php echo $username ?></a> on <?php echo $datePosted ?></p>
+    <p class="byline">by <b><?php echo $username ?></b> on <?php echo $datePosted ?></p>
 </div>
 <?php } ?>
