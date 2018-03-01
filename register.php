@@ -1,5 +1,8 @@
 <?php
 
+require_once "inc/dbconn.php";
+require_once "inc/log.php";
+
 // Default the "register attempt" flag to false
 $registerAttempt = False;
 
@@ -17,9 +20,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Make note that we are attempting a registration
   $registerAttempt = True;
-
-  // Declare the credentials to the database
-  include "inc/dbconn.php";
 
   // Pull the username, password, question, and answer from the <form> POST
   $username = $_POST['username'];
@@ -66,7 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       header("Location: login.php?register=success");
       exit();
     } else {
-      $errors[] = "database error. username already exists?";
+      auditLog("register.php: Registration failure");
+      $errors[] = "registration failed - username already exists?";
     }
 
   }

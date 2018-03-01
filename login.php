@@ -1,5 +1,8 @@
 <?php
 
+require_once "inc/dbconn.php";
+require_once "inc/log.php";
+
 session_start();
 // Default the login attempt flag to false
 $loginAttempt = False;
@@ -15,8 +18,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Make note that we're attempting a login
   $loginAttempt = True;
 
-  // Declare the credentials to the database
-  include "inc/dbconn.php";
 
   // Pull the username and password from the <form> POST
   $username = $_POST['username'];
@@ -39,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $usr = $stm->fetch();
     error_log($password." / ".$usr['password']);
     if(password_verify($password, $usr['password'])){
+      auditLog("login.php: Successful login.", $usr['userID']);
       // set session data accordingly
       $_SESSION['userid'] = $usr['userID'];
       $_SESSION['username'] = $username;
@@ -50,9 +52,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       exit();
     } else {
       // throw an error in the page if we don't get a user
-      $errors[] = "bad username / password combination (pw)";
+      auditLog("login.php: Failed login (password)", $usr['userID']);
+      $errors[] = "bad username / password combination";
     }
   } else {
+      auditLog("login.php: Failed login (username)");
     // throw an error in the page if we don't get a user
     $errors[] = "bad username / password combination";
   }

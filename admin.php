@@ -1,6 +1,6 @@
 <?php
 
-include 'inc/protected.php';
+include 'inc/adminonly.php';
 include 'inc/dbconn.php';
 
 // Query the database for the username and password entered

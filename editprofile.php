@@ -1,7 +1,8 @@
 <?php
 
-include "inc/protected.php";
-include "inc/dbconn.php";
+require_once "inc/protected.php";
+require_once "inc/dbconn.php";
+require_once "inc/log.php";
 
 // Default the edit attempt flag to false
 
@@ -38,6 +39,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $question = $row['question'];
     $answer = $row['answer'];
   } else {
+    auditLog("editprofile.php: Failed access", $userid);
     // If we don't get back a row, then the specified userid must not exists
     $errors[] = "the specified user id does not exist";
   }
@@ -85,6 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stm = $pdo->prepare($sql);
     $res = $stm->execute([$username, $password, $question, $answer, $userid]);
     if ($res != True) {
+      auditLog("editprofile.php: Database error");
       $errors[] = "database error";
     }
 
