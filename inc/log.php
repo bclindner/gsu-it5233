@@ -1,6 +1,6 @@
 <?php
 
-require_once 'dbconn.php';
+require_once "inc/dbconn.php";
 
 function auditLog($logDesc, $logUser=NULL){
     $logIP = $_SERVER['REMOTE_ADDR'];
