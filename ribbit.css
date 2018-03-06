@@ -86,7 +86,6 @@ button {
 .herobox {
     padding: 1em;
     display: block;
-    
 }
 .wrap {
     margin: 0 auto;
@@ -158,6 +157,10 @@ nav ul li {
 }
 
 /* tables */
+tr, table, td {
+  border-spacing: 0;
+  border: 1px solid #1d1f21;
+}
 td {
   padding: 1em;
 }
@@ -167,7 +170,7 @@ label {
     display: block;
 }
 input {
-    font-family: "Montserrat";  
+    font-family: "Montserrat";
     margin: 0.5em 0;
     padding: 0.5em;
     width: 80%;
