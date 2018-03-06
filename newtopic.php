@@ -23,10 +23,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <?php include "inc/meta.php"; ?>
+    <?php require "inc/meta.php"; ?>
 </head>
 <body>
-    <?php include "inc/header.php"; ?>
+    <?php require "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <h1 class="pagetitle left">new topic</h1>
@@ -46,6 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </form>
     </div>
     </main>
-    <?php include "inc/footer.php"; ?>
+    <?php require "inc/footer.php"; ?>
 </body>
 </html>

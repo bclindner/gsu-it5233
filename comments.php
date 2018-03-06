@@ -1,9 +1,9 @@
 <?php
-include "inc/protected.php";
-include "inc/comment.php";
-include "inc/topic.php";
+require "inc/protected.php";
+require "inc/comment.php";
+require "inc/topic.php";
 
-include 'inc/dbconn.php';
+require_once "inc/dbconn.php";
 
 // grab the topic from the db relating to this page and set it to a var
 $sql = "SELECT * from topics LEFT JOIN users ON users.userID = topics.userID WHERE topicID = ?";
@@ -33,10 +33,10 @@ $comments = $stm->fetchAll();
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <?php include "inc/meta.php"; ?>
+    <?php require "inc/meta.php"; ?>
 </head>
 <body>
-    <?php include "inc/header.php"; ?>
+    <?php require "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <div class="button accent left headbutton">
@@ -61,6 +61,6 @@ $comments = $stm->fetchAll();
         <div class="clear"></div>
     </div>
     </main>
-    <?php include "inc/footer.php"; ?>
+    <?php require "inc/footer.php"; ?>
 </body>
 </html>

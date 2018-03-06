@@ -1,8 +1,8 @@
 <?php
-include "inc/protected.php";
-include "inc/topicpreview.php";
+require "inc/protected.php";
+require "inc/topicpreview.php";
 
-include 'inc/dbconn.php';
+require_once 'inc/dbconn.php';
 
 // Query the database for the username and password entered
 $sql = "SELECT * from topics LEFT JOIN users ON topics.userID = users.userID ORDER BY timeCreated DESC";
@@ -16,10 +16,10 @@ $topics = $stm->fetchAll();
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <?php include "inc/meta.php"; ?>
+    <?php require "inc/meta.php"; ?>
 </head>
 <body>
-    <?php include "inc/header.php"; ?>
+    <?php require "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <h1 class="pagetitle left">topics</h1>
@@ -36,6 +36,6 @@ $topics = $stm->fetchAll();
         ?>
     </div>
     </main>
-    <?php include "inc/footer.php"; ?>
+    <?php require "inc/footer.php"; ?>
 </body>
 </html>

@@ -1,12 +1,12 @@
-<?php include "inc/protected.php"; ?>
+<?php require "inc/protected.php"; ?>
 <!doctype html>
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <?php include "inc/meta.php"; ?>
+    <?php require "inc/meta.php"; ?>
 </head>
 <body>
-    <?php include "inc/header.php"; ?>
+    <?php require "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <h1 class="pagetitle left">delete topic</h1>
@@ -22,6 +22,6 @@
         </form>
     </div>
     </main>
-    <?php include "inc/footer.php" ?>
+    <?php require "inc/footer.php" ?>
 </body>
 </html>

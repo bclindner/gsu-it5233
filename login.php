@@ -101,7 +101,7 @@ Notes:
                     registered successfully!
                   </div>
                 <?php } ?>
-                <?php include 'inc/errors.php' ?>
+                <?php require 'inc/errors.php' ?>
                 <p>please enter your username and password</p>
                 <div>
                     <label for="username">username</label>

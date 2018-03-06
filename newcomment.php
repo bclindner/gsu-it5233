@@ -36,10 +36,10 @@ $title = $topic['title'];
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <?php include "inc/meta.php"; ?>
+    <?php require "inc/meta.php"; ?>
 </head>
 <body>
-    <?php include "inc/header.php"; ?>
+    <?php require "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <h1 class="pagetitle left">new comment</h1>
@@ -59,6 +59,6 @@ $title = $topic['title'];
         </form>
     </div>
     </main>
-    <?php include "inc/footer.php"; ?>
+    <?php require "inc/footer.php"; ?>
 </body>
 </html>

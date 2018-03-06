@@ -116,10 +116,10 @@ Notes:
 <html>
 <head>
     <title>ribbit - a social network for frogs</title>
-    <?php include "inc/meta.php"; ?>
+    <?php require "inc/meta.php"; ?>
 </head>
 <body>
-    <?php include "inc/header.php"; ?>
+    <?php require "inc/header.php"; ?>
     <main>
     <div class="wrap">
         <h1 class="pagetitle left">edit profile</h1>
@@ -134,7 +134,7 @@ Notes:
             <h1><?php echo $username; ?></h1>
             <p>joined jan. 1, 2018</p>
             <div class="clear"></div>
-            <?php include 'inc/errors.php' ?>
+            <?php require 'inc/errors.php' ?>
             <form method="POST">
             <label for="image">replace profile avatar</label>
             <input type="file" name="image">
@@ -154,6 +154,6 @@ Notes:
         <div class="clear"></div>
     </div>
     </main>
-    <?php include "inc/footer.php"; ?>
+    <?php require "inc/footer.php"; ?>
 </body>
 </html>

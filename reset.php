@@ -8,7 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 } else if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
   // Connect to the database
-  include('inc/dbconn.php');
+  require 'inc/dbconn.php';
 
   // Grab or initialize the input values
   $username = $_POST['username'];
@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
       <form action="" method="POST">
         <a href="login.php">« go back</a>
         <h1>password reset</h1>
-        <?php include "inc/errors.php" ?>
+        <?php require "inc/errors.php" ?>
         <p>please fill out the following fields</p>
         <?php if (!empty($password)) { ?>
         <div>
