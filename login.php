@@ -4,26 +4,20 @@ require_once "inc/dbconn.php";
 require_once "inc/log.php";
 
 session_start();
-// Default the login attempt flag to false
-$loginAttempt = False;
+
 $errors = array();
 
-// Declare a set of variables to hold the username and password for the user
+// set null username+password value, to prevent php notices if null
 $username = "";
 $password = "";
 
-// If someone is attempting to login, process their request
+// only run login attempt code on POST
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-  // Make note that we're attempting a login
-  $loginAttempt = True;
-
-
-  // Pull the username and password from the <form> POST
+  // grab u+p from the form
   $username = $_POST['username'];
   $password = $_POST['password'];
 
-  // Validate the user input
+  // validate it (check if it's there
   if (empty($username)) {
     $errors[] = "missing username";
   }
@@ -35,11 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $sql = "SELECT userID, is_admin, password FROM users WHERE username = ?";
   $stm = $pdo->prepare($sql);
   $stm->execute([$username]);
+  // the query only returns 1 row so this only checks if rowCount is > 1
   if($stm->rowCount() == 1){
     // get our user row
     $usr = $stm->fetch();
-    error_log($password." / ".$usr['password']);
+    // check password with hash function
     if(password_verify($password, $usr['password'])){
+      // log the login
       auditLog("login.php: Successful login.", $usr['userID']);
       // set session data accordingly
       $_SESSION['userid'] = $usr['userID'];
@@ -51,32 +47,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       header("Location: topics.php");
       exit();
     } else {
-      // throw an error in the page if we don't get a user
-      auditLog("login.php: Failed login (password)", $usr['userID']);
+      // throw a nondescript error in the page if the password doesn't match
+      auditLog("login.php: Failed login (bad password)", $usr['userID']);
       $errors[] = "bad username / password combination";
     }
   } else {
-      auditLog("login.php: Failed login (username)");
-    // throw an error in the page if we don't get a user
+    // throw a nondescript error in the page if the user doesn't match
+    auditLog("login.php: Failed login (bad username, or db error)");
     $errors[] = "bad username / password combination";
   }
 }
-
-/**
-If we get to here, there are a couple of possible scenarios that affect how we display the page.
-
-1) This was a GET request. The variable $loginAttempt will be False. We can just display the page.
-2) This was a POST request. The variable $loginAttempt will be True and $errors will contain one or more error messages.
-3) [NOT POSSIBLE] This was a POST request and there were no errors. We should have redirected to the topics.php page.
-
-Notes:
-* Be sure to echo the values back into the input fields (i.e. "sticky form").
-* Display any error messages found in the $errors array.
-* The register.php redirects here after a successful registration (i.e. Location: login.php?register=success), so we
-     need to check if ($_GET['register'] == 'success'), in which case we'll display a message saying
-     "Registration successful. Please login."
-
-**/
 
 ?>
 <!doctype html>
