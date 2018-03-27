@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     header("Location: comments.php?topicid=$tid");
     exit();
   } else {
-    $errors[] = "something went wrong $cid, $uid, $tid, $content";
+    $errors[] = "something went wrong";
   }
 } else {
   header("Location: 500.php");
