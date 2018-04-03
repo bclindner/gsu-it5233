@@ -6,7 +6,7 @@ require "inc/topic.php";
 require_once "inc/dbconn.php";
 
 // grab the topic from the db relating to this page and set it to a var
-$sql = "SELECT * from topics LEFT JOIN users ON users.userID = topics.userID WHERE topicID = ?";
+$sql = "select topics.title as title, topics.content as content, username, filename, topics.timeCreated from topics left join users on topics.userID = users.userID left outer join attachments on attachments.attachmentID = topics.attachmentID where topics.topicID = ?";
 $stm = $pdo->prepare($sql);
 $stm->execute([$_GET['topicid']]);
 if($stm->rowCount() > 0){
