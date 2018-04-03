@@ -4,11 +4,11 @@ require_once "dbconn.php";
 function setsession($userid) {
   global $pdo;
   $sessid = bin2hex(random_bytes(8));
-  $sql = "INSERT INTO sessions (sessionID, userID) VALUES (?, ?)";
+  $sql = "INSERT INTO sessions (sessionID, userID, expires) VALUES (?, ?, DATE_ADD(now(), INTERVAL 7 DAY))";
   $stm = $pdo->prepare($sql);
   $res = $stm->execute([$sessid, $userid]);
   if($res) {
-    setcookie("sessid", $sessid, $sessexpires);
+    setcookie("sessid", $sessid, time() + 604800);
   }
   else {
     auditLog('session set failure');
@@ -19,7 +19,7 @@ function setsession($userid) {
 function getsession() {
   global $pdo;
   $sessid = $_COOKIE['sessid'];
-  $sql = "SELECT users.username, users.userID, session.expires FROM session LEFT JOIN user ON session.userID = user.userID WHERE session.sessionID = ?";
+  $sql = "SELECT users.username, users.userID, sessions.expires FROM sessions LEFT JOIN users ON sessions.userID = users.userID WHERE sessions.sessionID = ?";
   $stm = $pdo->prepare($sql);
   $res = $stm->execute([$sessid]);
   if($res){
@@ -32,6 +32,22 @@ function getsession() {
   }
   else {
     auditLog('session get failure');
+    return NULL; // should probably change this later
+  }
+}
+
+function delsession() {
+  global $pdo;
+  $sessid = $_COOKIE['sessid'];
+  $sql = "DELETE FROM sessions WHERE sessID = ?";
+  $stm = $pdo->prepare($sql);
+  $res = $stm->execute([$sessid]);
+  if($res) {
+    // set already expired cookie to remove it
+    setcookie("sessid", "", time() - 1000);
+  }
+  else {
+    auditLog('session delete failure');
     return NULL; // should probably change this later
   }
 }
