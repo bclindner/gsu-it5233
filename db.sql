@@ -51,3 +51,10 @@ create table auditlog (
   logUserID varchar(16) null
 );
 
+create table sessions (
+  sessionID varchar(16) not null,
+  userID varchar(16) not null,
+  expires DATETIME not null,
+  primary key (sessionID),
+  foreign key (userID) references users(userID)
+);

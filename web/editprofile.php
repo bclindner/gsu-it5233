@@ -19,7 +19,7 @@ $answer = "";
 // If someone is accessing this page for the first time, try and grab the userid from the GET request
 // then pull the user's details from the database
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-  $userid = $_GET['userid'];
+  $userid = $session['userID'];
 
   // Validate there was a userid in the URL
   if (empty($userid)) {

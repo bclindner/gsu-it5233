@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   // set variables for query
   $tid = $_POST['topicid'];
   $content = $_POST['content'];
-  $uid = $_SESSION['userid'];
+  $uid = $session['userID'];
   // formulate and execute query
   $sql = "INSERT INTO comments (commentID, userID, topicID, content, timeCreated) VALUES (?, ?, ?, ?, now())";
   $stm = $pdo->prepare($sql);

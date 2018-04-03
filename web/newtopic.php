@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // pull info from form
   $tid = bin2hex(random_bytes(8));
   $title = $_POST['title'];
-  $uid = $_SESSION['userid'];
+  $uid = $session['userID'];
   $content = $_POST['content'];
   // is there a file? if so, grab file extension and ensure it is not malicious
   if(isset($_FILES['attachment'])){

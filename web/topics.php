@@ -1,7 +1,7 @@
 <?php
-require "inc/protected.php";
 require "inc/topicpreview.php";
-
+require_once "inc/session.php";
+require_once "inc/protected.php";
 require_once 'inc/dbconn.php';
 
 // Query the database for the username and password entered
