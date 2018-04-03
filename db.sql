@@ -53,8 +53,8 @@ create table auditlog (
 
 create table sessions (
   sessionID varchar(16) not null,
-  userID varchar(16) not null index,
-  expires DATETIME not null default current_timestamp,
+  userID varchar(16) not null,
+  expires DATETIME not null,
   primary key (sessionID),
-  foreign key userID references users(userID)
+  foreign key (userID) references users(userID)
 );
