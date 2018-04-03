@@ -19,14 +19,15 @@ function setsession($userid) {
 function getsession() {
   global $pdo;
   $sessid = $_COOKIE['sessid'];
-  $sql = "SELECT users.username, users.userID, sessions.expires FROM sessions LEFT JOIN users ON sessions.userID = users.userID WHERE sessions.sessionID = ?";
+  $sql = "SELECT users.username, users.is_admin, users.userID, sessions.expires FROM sessions LEFT JOIN users ON sessions.userID = users.userID WHERE sessions.sessionID = ?";
   $stm = $pdo->prepare($sql);
   $res = $stm->execute([$sessid]);
   if($res){
     $row = $stm->fetch();
     return array(
       "userID" => $row['userID'],
-      "username" => $row['username']
+      "username" => $row['username'],
+      "isAdmin" => $row['is_admin']
     );
     // TODO: renew session
   }
