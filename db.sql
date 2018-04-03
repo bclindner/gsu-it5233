@@ -9,8 +9,9 @@ create table users (
 );
 
 create table attachments (
-  attachmentID integer not null primary key,
-  filename varchar(255) not null
+  attachmentID integer not null auto_increment,
+  filename varchar(255) not null,
+  primary key (attachmentID)
 );
 
 create table topics
@@ -44,7 +45,7 @@ create table comments
 
 create table auditlog (
   logID integer not null auto_increment primary key,
-  logDate datetime not null,
+  logDate datetime not null default current_timestamp,
   logDesc varchar(255) not null,
   logIP varchar(45) not null,
   logUserID varchar(16) null
