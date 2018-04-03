@@ -39,7 +39,7 @@ function getsession() {
 function delsession() {
   global $pdo;
   $sessid = $_COOKIE['sessid'];
-  $sql = "DELETE FROM sessions WHERE sessID = ?";
+  $sql = "DELETE FROM sessions WHERE sessionID = ?";
   $stm = $pdo->prepare($sql);
   $res = $stm->execute([$sessid]);
   if($res) {
