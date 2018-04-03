@@ -1,9 +1,10 @@
 <?php
 
 require_once "inc/dbconn.php";
+require_once "inc/session.php";
 require_once "inc/log.php";
 
-session_start();
+print_r(getsession());
 
 $errors = array();
 
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   }
 
   // query db for u/p combo using PDO
-  $sql = "SELECT userID, is_admin, password FROM users WHERE username = ?";
+  $sql = "SELECT userID, password FROM users WHERE username = ?";
   $stm = $pdo->prepare($sql);
   $stm->execute([$username]);
   // the query only returns 1 row so this only checks if rowCount is > 1
@@ -37,12 +38,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if(password_verify($password, $usr['password'])){
       // log the login
       auditLog("login.php: Successful login.", $usr['userID']);
-      // set session data accordingly
-      $_SESSION['userid'] = $usr['userID'];
-      $_SESSION['username'] = $username;
-      if($usr['is_admin']){
-        $_SESSION['is_admin'] = true;
-      }
+      // TODO set session data accordingly
+      setsession($usr['userID']);
       // redirect the user
       header("Location: topics.php");
       exit();
