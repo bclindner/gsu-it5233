@@ -54,7 +54,7 @@ create table auditlog (
 create table sessions (
   sessionID varchar(16) not null,
   userID varchar(16) not null index,
-  expires DATETIME not null,
+  expires DATETIME not null default current_timestamp,
   primary key (sessionID),
   foreign key userID references users(userID)
 );
