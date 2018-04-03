@@ -8,6 +8,11 @@ create table users (
   primary key (userid)
 );
 
+create table attachments (
+  attachmentID integer not null primary key,
+  filename varchar(255) not null
+);
+
 create table topics
 (
   topicID varchar(16) not null unique,
@@ -45,7 +50,3 @@ create table auditlog (
   logUserID varchar(16) null
 );
 
-create table attachments (
-  attachID integer not null primary key,
-  filename varchar(255) not null
-);
