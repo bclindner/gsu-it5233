@@ -1,8 +1,10 @@
 <?php
 require "inc/protected.php";
 require "inc/topicpreview.php";
-
 require_once 'inc/dbconn.php';
+require_once "inc/session.php";
+
+$session = getsession();
 
 // Query the database for the username and password entered
 $sql = "SELECT * from topics LEFT JOIN users ON topics.userID = users.userID ORDER BY timeCreated DESC";
