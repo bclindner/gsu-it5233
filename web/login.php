@@ -4,8 +4,6 @@ require_once "inc/dbconn.php";
 require_once "inc/session.php";
 require_once "inc/log.php";
 
-print_r(getsession());
-
 $errors = array();
 
 // set null username+password value, to prevent php notices if null
