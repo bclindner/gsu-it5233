@@ -56,9 +56,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
   // Pull the userid, username, password, question, and answer from the <form> POST
-  $userid = $_POST['userid'];
+  $userid = $session['userID'];
   $username = $_POST['username'];
-  $password = $_POST['password'];
+  $oldpassword = $_POST['oldpassword'];
+  $newpassword = $_POST['newpassword'];
   $question = $_POST['question'];
   $answer = $_POST['answer'];
 
@@ -69,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (empty($username)) {
     $errors[] = "missing username";
   }
-  if (empty($password)) {
+  if (empty($oldpassword)) {
     $errors[] = "missing password";
   }
   if (empty($question)) {
@@ -78,14 +79,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   if (empty($answer)) {
     $errors[] = "missing answer to security question";
   }
-
+  // Check password
+  $sql = "SELECT password FROM users where userID = ?";
+  $stm = $pdo->prepare($sql);
+  $res = $stm->execute([$session['userID']]);
+  if($res){
+    $row = $stm->fetch();
+    $dbpass = $row['password'];
+    if(!password_verify($oldpassword, $dbpass)){
+      $errors[] = "incorrect password";
+    }
+  }
+  else {
+    $errors[] = "something went wrong";
+  }
   // Only try to insert the data if there are no validation errors
   if (sizeof($errors) == 0) {
 
     // Update the database for this userid
     $sql = "UPDATE users SET username = ?, password = ?, question = ?, answer = ? WHERE userID = ?";
     $stm = $pdo->prepare($sql);
-    $res = $stm->execute([$username, $password, $question, $answer, $userid]);
+    if($newpassword){
+      $res = $stm->execute([$username, password_hash($newpassword, PASSWORD_DEFAULT), $question, $answer, $userid]);
+    }
+    else{
+      $res = $stm->execute([$username, password_hash($dbpass, PASSWORD_DEFAULT), $question, $answer, $userid]);
+    }
     if ($res != True) {
       auditLog("editprofile.php: Database error");
       $errors[] = "database error";
@@ -140,13 +159,14 @@ Notes:
             <input type="file" name="image">
             <label for="username">change username</label>
             <input type="text" name="username" value="<?php echo $username; ?>">
-            <label for="password">new password</label>
-            <input type="password" name="password" value="<?php echo $password; ?>">
+            <label for="oldpassword">old password</label>
+            <input type="password" name="oldpassword" value="">
+            <label for="newpassword">new password</label>
+            <input type="password" name="newpassword" value="">
             <label for="question">security question</label>
             <input type="text" name="question" value="<?php echo $question; ?>">
             <label for="answer">security answer</label>
             <input type="text" name="answer" value="<?php echo $answer; ?>">
-            <input type="hidden" name="userid" value="<?php echo $_GET['userid'];?>">
             <input type="submit" value="save" class="button accent">
             </form>
         </div>
