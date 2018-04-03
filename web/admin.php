@@ -5,7 +5,6 @@ require_once 'inc/dbconn.php';
 
 // Query the database for the username and password entered
 $sql = 'SELECT * FROM users';
-echo $sql;
 $stm = $pdo->prepare($sql);
 $stm->execute();
 // Go through each row from the database and store it in an array
