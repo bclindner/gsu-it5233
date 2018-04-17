@@ -9,6 +9,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $title = $_POST['title'];
   $uid = $session['userID'];
   $content = $_POST['content'];
+  // clean with htmlspecialchars
+  $title = htmlspecialchars($title);
+  $content = htmlspecialchars($content);
   // is there a file? if so, grab file extension and ensure it is not malicious
   if(isset($_FILES['attachment'])){
     $whitelist = ['jpg', 'png', 'gif', 'doc', 'docx', 'pdf'];

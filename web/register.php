@@ -21,11 +21,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   // Make note that we are attempting a registration
   $registerAttempt = True;
 
-  // Pull the username, password, question, and answer from the <form> POST
+  // get registration parameters
   $username = $_POST['username'];
   $password = $_POST['password'];
   $question = $_POST['question'];
   $answer = $_POST['answer'];
+  // clean registration parameters
+  $username = htmlspecialchars($username);
+  $password = htmlspecialchars($password);
+  $question = htmlspecialchars($question);
+  $answer = htmlspecialchars($answer);
 
   // Validate the user input
   if (empty($username)) {
