@@ -1,3 +1,5 @@
+create database it5233 if not exists;
+use it5233;
 create table users (
   userID varchar(16) not null,
   username varchar(255) not null unique,
