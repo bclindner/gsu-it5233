@@ -131,7 +131,7 @@ Notes:
         </div>
         <div>
             <label for="password">password</label>
-            <input type="password" name="password" value="<?php echo $password; ?>"></input>
+            <input type="password" name="password"></input>
         </div>
         <div>
             <label for="question">security question</label>
