@@ -14,6 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
   $username = $_POST['username'];
   $question = $_POST['question'];
   $answer = $_POST['answer'];
+  // sanitize input values (htmlspecialchars)
+  $username = htmlspecialchars($username);
+  $question = htmlspecialchars($question);
+  $answer = htmlspecialchars($answer);
 
   // Validate the user input
   if (empty($username)) {
@@ -76,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <p>please fill out the following fields</p>
         <?php if (!empty($password)) { ?>
         <div>
-          <p>your password is<br><b><?php echo $password; ?></b></p>
+          <p>reset password placeholder</p>
             <div class="button daccent">
                 <a href="login.php">
                     go to login

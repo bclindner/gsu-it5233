@@ -38,6 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $password = $row['password'];
     $question = $row['question'];
     $answer = $row['answer'];
+    // sanitize input
+    $username = htmlspecialchars($username);
+    $password = htmlspecialchars($password);
+    $question = htmlspecialchars($question);
+    $answer = htmlspecialchars($answer);
   } else {
     auditLog("editprofile.php: Failed access", $userid);
     // If we don't get back a row, then the specified userid must not exists
@@ -62,6 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
   $newpassword = $_POST['newpassword'];
   $question = $_POST['question'];
   $answer = $_POST['answer'];
+  $userid = htmlspecialchars($userid);
+  $username = htmlspecialchars($username);
+  $oldpassword = htmlspecialchars($oldpassword);
+  $newpassword = htmlspecialchars($newpassword);
+  $question = htmlspecialchars($question);
+  $answer = htmlspecialchars($answer);
 
   // Validate the user input
   if (empty($userid)) {
